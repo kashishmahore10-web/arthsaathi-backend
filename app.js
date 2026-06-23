@@ -11,6 +11,8 @@ const transactionRoutes = require("./routes/transactionRoutes");
 const agentRoutes = require("./routes/agentRoutes");
 
 const app = express();
+const app = express();
+app.set("trust proxy", 1); // ← YE ADD KARO
 
 // CORS — allow all Vercel + localhost origins
 const allowedOrigins = process.env.CLIENT_URL
