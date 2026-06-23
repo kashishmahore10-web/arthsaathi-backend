@@ -12,7 +12,7 @@ const askGemini = async (systemPrompt, userMessage, options = {}, retries = 3) =
   for (let i = 0; i < retries; i++) {
     try {
       const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
+        model: "gemini-1.5-flash",
         contents: [{ role: "user", parts: [{ text: userMessage }] }],
         config: {
           systemInstruction: systemPrompt,
