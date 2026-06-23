@@ -11,32 +11,18 @@ const transactionRoutes = require("./routes/transactionRoutes");
 const agentRoutes = require("./routes/agentRoutes");
 
 const app = express();
-const app = express();
-app.set("trust proxy", 1); // ← YE ADD KARO
+app.set("trust proxy", 1);
 
-// CORS — allow all Vercel + localhost origins
-const allowedOrigins = process.env.CLIENT_URL
-  ? process.env.CLIENT_URL.split(",").map(u => u.trim())
-  : ["*"];
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (
-        !origin ||
-        allowedOrigins.includes("*") ||
-        allowedOrigins.includes(origin) ||
-        origin.endsWith(".vercel.app") ||
-        origin.includes("localhost")
-      ) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || origin.endsWith(".vercel.app") || origin.includes("localhost")) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+}));
 
 app.use(helmet());
 app.use(express.json({ limit: "10mb" }));
